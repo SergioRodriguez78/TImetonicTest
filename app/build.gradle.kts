@@ -82,4 +82,7 @@ dependencies {
     // Gson
     implementation(libs.gson)
 
+    // Shared Preferences
+    implementation(libs.androidx.security.crypto)
+
 }

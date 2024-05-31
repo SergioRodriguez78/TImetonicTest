@@ -23,6 +23,9 @@ converterGson = "2.9.0"
 ### Gson
 gson = "2.11.0"
 
+### Shared Preferences Security
+securityCrypto = "1.1.0-alpha06"
+
 [libraries]
 ### Android base libraries
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +56,8 @@ converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref
 ### Gson
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
+### Shared Preferences Security
+androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "securityCrypto" }
 
 [plugins]
 ### Android plugins
