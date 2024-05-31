@@ -1,6 +1,7 @@
 package com.timetonic.test.ui.components.atoms
 
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import coil.compose.SubcomposeAsyncImage
@@ -9,6 +10,7 @@ import coil.compose.SubcomposeAsyncImage
 fun ImageTimetonic(
     modifier: Modifier,
     url: String,
+    progressIndicator: ProgressIndicator,
     contentDescription: String? = null,
 ) {
     SubcomposeAsyncImage(
@@ -16,7 +18,15 @@ fun ImageTimetonic(
         model = url,
         contentDescription = contentDescription,
         loading = {
-            CircularProgressIndicator()
+            when (progressIndicator) {
+                ProgressIndicator.Circular -> CircularProgressIndicator()
+                ProgressIndicator.Linear -> LinearProgressIndicator()
+            }
         },
     )
+}
+
+enum class ProgressIndicator {
+    Circular,
+    Linear
 }
