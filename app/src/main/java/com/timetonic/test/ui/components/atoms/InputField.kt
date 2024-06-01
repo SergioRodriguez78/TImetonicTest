@@ -5,7 +5,6 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.timetonic.test.ui.theme.TimeTOnicOrange
 import com.timetonic.test.ui.theme.TimetonicLightColor
 
 @Composable
@@ -19,7 +18,7 @@ fun InputField(
         modifier = modifier,
         value = value,
         onValueChange = { onValueChange(it) },
-        label = { Text("Label") },
+        label = { Text(labelText) },
         colors = TextFieldDefaults.colors(
             focusedContainerColor = TimetonicLightColor,
             unfocusedContainerColor = TimetonicLightColor,
