@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -9,6 +11,19 @@ android {
     compileSdk = 34
 
     defaultConfig {
+
+        val keystoreFile = project.rootProject.file("local.properties")
+        val properties = Properties()
+        properties.load(keystoreFile.inputStream())
+
+        val apiKey = properties.getProperty("MAIN_URL") ?: ""
+
+        buildConfigField(
+            type = "String",
+            name = "MAIN_URL",
+            value = apiKey
+        )
+
         applicationId = "com.timetonic.test"
         minSdk = 30
         targetSdk = 34

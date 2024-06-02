@@ -18,7 +18,8 @@ class App : Application() {
 
             modules(
                 KoinDeclarations.getSharedPreferencesModule(),
-                KoinDeclarations.getNetworkModule()
+                KoinDeclarations.getNetworkModule(),
+                KoinDeclarations.getLoginModule(),
             )
         }
     }
