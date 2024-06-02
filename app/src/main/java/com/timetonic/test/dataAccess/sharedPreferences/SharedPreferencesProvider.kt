@@ -1,4 +1,4 @@
-package com.timetonic.test.dataAccess
+package com.timetonic.test.dataAccess.sharedPreferences
 
 import android.content.Context
 import android.content.SharedPreferences
