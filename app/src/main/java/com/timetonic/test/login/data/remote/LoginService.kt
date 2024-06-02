@@ -3,11 +3,12 @@ package com.timetonic.test.login.data.remote
 import com.timetonic.test.login.data.remote.model.AppKeyCreate
 import com.timetonic.test.login.data.remote.model.OAuthKey
 import com.timetonic.test.login.data.remote.model.SessionKeyCreate
+import kotlinx.coroutines.flow.Flow
 
 interface LoginService {
-    suspend fun createAppKey(): AppKeyCreate
+    fun createAppKey(): Flow<AppKeyCreate>
 
-    suspend fun createOAuthKey(userId: String, pwd: String, appKey: String): OAuthKey
+    fun createOAuthKey(userId: String, pwd: String, appKey: String): Flow<OAuthKey>
 
-    suspend fun createSessionKey(ou: String, oauthKey: String): SessionKeyCreate
+    fun createSessionKey(ou: String, oauthKey: String): Flow<SessionKeyCreate>
 }
