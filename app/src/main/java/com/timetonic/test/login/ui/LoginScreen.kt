@@ -6,18 +6,38 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.timetonic.test.login.LoginViewModel
+import com.timetonic.test.ui.BaseScreenState
 import com.timetonic.test.ui.components.atoms.ImageTimetonic
 import com.timetonic.test.ui.components.atoms.InputField
 import com.timetonic.test.ui.components.atoms.PrimaryButton
 import com.timetonic.test.ui.components.atoms.ProgressIndicator
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
+    viewModel: LoginViewModel = koinViewModel()
 ) {
+
+    val loginState = viewModel.loginState.collectAsState()
+    val loginData = viewModel.loginData.collectAsState()
+
+    LaunchedEffect(loginState) {
+        if (loginState.value is BaseScreenState.Success) {
+            TODO()
+            // Navigate to the next screen
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -37,26 +57,48 @@ fun LoginScreen(
         InputField(modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp),
-            value = "Text",
+            value = loginData.value.email,
             labelText = "Email",
-            onValueChange = { }
+            onValueChange = {
+                viewModel.updateEmail(it)
+            }
         )
 
         InputField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            value = "Text",
+            value = loginData.value.password,
             labelText = "Password",
-            onValueChange = { }
+            onValueChange = {
+                viewModel.updatePassword(it)
+            }
         )
 
         PrimaryButton(modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth(),
             buttonText = "Login",
-            onClick = { }
+            onClick = {
+                viewModel.login()
+            }
         )
+
+        if (loginState.value is BaseScreenState.Error) {
+            Text(
+                text = "Error occurred",
+                color = Color.Red,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+        if (loginState.value is BaseScreenState.Loading) {
+            CircularProgressIndicator()
+            Text(
+                text = "Loading...",
+                color = Color.Gray,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
     }
 }
 

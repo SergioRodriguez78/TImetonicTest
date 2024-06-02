@@ -11,7 +11,7 @@ import com.timetonic.test.ui.theme.TimetonicLightColor
 fun InputField(
     modifier: Modifier,
     value: String,
-    labelText : String,
+    labelText: String,
     onValueChange: (String) -> Unit
 ) {
     TextField(
@@ -19,6 +19,7 @@ fun InputField(
         value = value,
         onValueChange = { onValueChange(it) },
         label = { Text(labelText) },
+        singleLine = true,
         colors = TextFieldDefaults.colors(
             focusedContainerColor = TimetonicLightColor,
             unfocusedContainerColor = TimetonicLightColor,
