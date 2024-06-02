@@ -101,4 +101,7 @@ dependencies {
     // Shared Preferences
     implementation(libs.androidx.security.crypto)
 
+    // Coroutines
+    implementation(libs.kotlinx.coroutines)
+
 }
