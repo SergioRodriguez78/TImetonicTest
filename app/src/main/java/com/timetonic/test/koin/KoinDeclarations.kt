@@ -5,6 +5,7 @@ import com.timetonic.test.dataAccess.sharedPreferences.manager.SharedPreferences
 import com.timetonic.test.dataAccess.sharedPreferences.provider.SharedPreferencesProvider
 import com.timetonic.test.landing.data.LandingRepository
 import com.timetonic.test.landing.data.LandingRepositoryImpl
+import com.timetonic.test.landing.LandingViewModel
 import com.timetonic.test.landing.data.remote.LandingService
 import com.timetonic.test.landing.data.remote.LandingServiceImpl
 import com.timetonic.test.login.LoginViewModel
@@ -40,5 +41,6 @@ object KoinDeclarations {
         single { NetworkProvider().provideLandingApi(get()) }
         singleOf(::LandingServiceImpl) { bind<LandingService>() }
         singleOf(::LandingRepositoryImpl) { bind<LandingRepository>() }
+        singleOf(::LandingViewModel)
     }
 }

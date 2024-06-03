@@ -5,6 +5,7 @@ import com.timetonic.test.dataAccess.sharedPreferences.manager.SharedPreferences
 import com.timetonic.test.landing.data.remote.LandingService
 import com.timetonic.test.landing.data.remote.model.extension.toBookUI
 import com.timetonic.test.landing.ui.model.BookUI
+import com.timetonic.test.network.ApiResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -14,7 +15,7 @@ class LandingRepositoryImpl(
     private val service: LandingService,
     private val preferences: SharedPreferencesManager
 ) : LandingRepository {
-    override suspend fun getAllBooks(): Flow<List<BookUI>> =
+    override suspend fun getAllBooks(): Flow<ApiResponse<List<BookUI>?>> =
         withContext(Dispatchers.IO) {
             val ou = preferences.readString(SharedPreferencesManagerImpl.OU).orEmpty()
             val sessionKey =
@@ -25,9 +26,15 @@ class LandingRepositoryImpl(
                 ou = ou,
                 sessionKey = sessionKey,
             ).map { landingResponseDTO ->
-                landingResponseDTO.allBooks.booksInfo.map { booksDto ->
+
+                if (landingResponseDTO.allBooks.booksInfo.isEmpty()) {
+                    return@map ApiResponse.Error(Throwable("No books found"))
+                }
+
+                val books =landingResponseDTO.allBooks.booksInfo.map { booksDto ->
                     booksDto.toBookUI()
                 }
+                ApiResponse.Success(books)
             }
         }
 }
