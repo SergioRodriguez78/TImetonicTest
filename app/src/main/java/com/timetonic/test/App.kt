@@ -20,6 +20,7 @@ class App : Application() {
                 KoinDeclarations.getSharedPreferencesModule(),
                 KoinDeclarations.getNetworkModule(),
                 KoinDeclarations.getLoginModule(),
+                KoinDeclarations.getLandingModule(),
             )
         }
     }
