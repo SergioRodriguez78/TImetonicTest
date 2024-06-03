@@ -1,5 +1,7 @@
 package com.timetonic.test.login.data
 
+import com.timetonic.test.dataAccess.sharedPreferences.manager.SharedPreferencesManager
+import com.timetonic.test.dataAccess.sharedPreferences.manager.SharedPreferencesManagerImpl
 import com.timetonic.test.login.data.remote.LoginService
 import com.timetonic.test.network.ApiResponse
 import kotlinx.coroutines.Dispatchers
@@ -11,10 +13,11 @@ import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class LoginRepositoryImpl(
-    private val loginService: LoginService
+    private val loginService: LoginService,
+    private val preferences: SharedPreferencesManager
 ) : LoginRepository {
 
-    override suspend fun login(email: String, password: String): Flow<ApiResponse<String?>> =
+    override suspend fun login(email: String, password: String): Flow<ApiResponse<Unit?>> =
         withContext(Dispatchers.IO) {
             loginService.createAppKey().flatMapConcat { appKey ->
                 loginService.createOAuthKey(
@@ -30,7 +33,8 @@ class LoginRepositoryImpl(
                     if (it.sesskey.isBlank()) {
                         ApiResponse.Error(Throwable("Session key is blank"))
                     } else {
-                        ApiResponse.Success(it.sesskey)
+                        preferences.writeString(SharedPreferencesManagerImpl.SESSION_KEY, it.sesskey)
+                        ApiResponse.Success(Unit)
                     }
                 }
             }
