@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class LandingResponseDTO(
     @SerializedName("status") val status: String,
-    @SerializedName("allBooks") val allBooks: List<BookDTO>
+    @SerializedName("allBooks") val allBooks: BookDTO
 )
