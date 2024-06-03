@@ -2,10 +2,9 @@ package com.timetonic.test.login.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class OAuthKey(
+data class SessionKeyCreateDTO(
     @SerializedName("status") val status: String,
-    @SerializedName("oauthkey") val oauthkey: String,
-    @SerializedName("o_u") val ou: String,
+    @SerializedName("sesskey") val sesskey: String,
     @SerializedName("createdVNB") val createdVNB: String,
     @SerializedName("req") val req: String,
 )

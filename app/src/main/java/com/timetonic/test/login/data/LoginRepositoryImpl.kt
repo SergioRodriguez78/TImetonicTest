@@ -26,14 +26,20 @@ class LoginRepositoryImpl(
                     appKey = appKey.appKey
                 )
             }.flatMapConcat { oauthKey ->
+
+                preferences.writeString(SharedPreferencesManagerImpl.OU, oauthKey.ou)
+
                 loginService.createSessionKey(
                     ou = oauthKey.ou,
                     oauthKey = oauthKey.oauthkey
-                ).map {
-                    if (it.sesskey.isBlank()) {
+                ).map { sessionKey ->
+                    if (sessionKey.sesskey.isBlank()) {
                         ApiResponse.Error(Throwable("Session key is blank"))
                     } else {
-                        preferences.writeString(SharedPreferencesManagerImpl.SESSION_KEY, it.sesskey)
+                        preferences.writeString(
+                            SharedPreferencesManagerImpl.SESSION_KEY,
+                            sessionKey.sesskey
+                        )
                         ApiResponse.Success(Unit)
                     }
                 }

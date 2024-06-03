@@ -3,6 +3,8 @@ package com.timetonic.test.koin
 import com.timetonic.test.dataAccess.sharedPreferences.manager.SharedPreferencesManager
 import com.timetonic.test.dataAccess.sharedPreferences.manager.SharedPreferencesManagerImpl
 import com.timetonic.test.dataAccess.sharedPreferences.provider.SharedPreferencesProvider
+import com.timetonic.test.landing.data.remote.LandingService
+import com.timetonic.test.landing.data.remote.LandingServiceImpl
 import com.timetonic.test.login.LoginViewModel
 import com.timetonic.test.login.data.LoginRepository
 import com.timetonic.test.login.data.LoginRepositoryImpl
@@ -30,5 +32,10 @@ object KoinDeclarations {
         singleOf(::LoginServiceImpl) { bind<LoginService>() }
         singleOf(::LoginRepositoryImpl) { bind<LoginRepository>() }
         viewModelOf(::LoginViewModel)
+    }
+
+    fun getLandingModule() = module {
+        single { NetworkProvider().provideLandingApi(get()) }
+        singleOf(::LandingServiceImpl) { bind<LandingService>() }
     }
 }

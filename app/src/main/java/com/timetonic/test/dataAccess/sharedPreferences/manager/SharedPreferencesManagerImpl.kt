@@ -16,5 +16,6 @@ class SharedPreferencesManagerImpl(
 
     companion object {
         const val SESSION_KEY = "session_KEY"
+        const val OU = "ou"
     }
 }

@@ -1,6 +1,7 @@
 package com.timetonic.test.network
 
 import com.timetonic.test.BuildConfig
+import com.timetonic.test.landing.data.remote.LandingApi
 import com.timetonic.test.login.data.remote.LoginApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -12,4 +13,6 @@ class NetworkProvider {
         .build()
 
     fun provideLoginApi(retrofit: Retrofit): LoginApi = retrofit.create(LoginApi::class.java)
+
+    fun provideLandingApi(retrofit: Retrofit): LandingApi = retrofit.create(LandingApi::class.java)
 }
