@@ -13,9 +13,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.timetonic.test.login.LoginViewModel
+import com.timetonic.test.navigation.NavigationRoutes
 import com.timetonic.test.ui.BaseScreenState
 import com.timetonic.test.ui.components.atoms.ImageTimetonic
 import com.timetonic.test.ui.components.atoms.InputField
@@ -25,16 +26,16 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun LoginScreen(
+    navController: NavController,
     viewModel: LoginViewModel = koinViewModel()
 ) {
 
     val loginState = viewModel.loginState.collectAsState()
     val loginData = viewModel.loginData.collectAsState()
 
-    LaunchedEffect(loginState) {
+    LaunchedEffect(loginState.value) {
         if (loginState.value is BaseScreenState.Success) {
-            TODO()
-            // Navigate to the next screen
+            navController.navigate(NavigationRoutes.LandingScreen.route)
         }
     }
 
@@ -100,10 +101,4 @@ fun LoginScreen(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun LoginScreenPreview() {
-    LoginScreen()
 }
