@@ -4,5 +4,5 @@ import com.timetonic.test.network.ApiResponse
 import kotlinx.coroutines.flow.Flow
 
 interface LoginRepository {
-    suspend fun login(email: String, password: String): Flow<ApiResponse<String?>>
+    suspend fun login(email: String, password: String): Flow<ApiResponse<Unit?>>
 }
